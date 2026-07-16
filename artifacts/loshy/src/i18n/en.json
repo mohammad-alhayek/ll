@@ -1,0 +1,124 @@
+{
+  "app": {
+    "name": "Loshy",
+    "tagline": "A little place made only for us.",
+    "couple": "Mohammad ❤️ Loshy"
+  },
+  "auth": {
+    "welcome": "Welcome back",
+    "email": "Email",
+    "password": "Password",
+    "login": "Sign In",
+    "loggingIn": "Signing in...",
+    "logout": "Sign Out",
+    "accessDenied": "Access denied. This app is private.",
+    "error": "Something went wrong. Please try again."
+  },
+  "home": {
+    "togetherSince": "Together Since",
+    "days": "Days",
+    "weeks": "Weeks",
+    "months": "Months",
+    "years": "Years",
+    "together": "Together",
+    "letters": "Letters",
+    "reminders": "Reminders",
+    "memories": "Memories",
+    "todayMemory": "Today's Memory",
+    "onThisDay": "On this day...",
+    "noMemories": "No memories yet. Write your first letter!"
+  },
+  "letters": {
+    "title": "Letters",
+    "write": "Write a Letter",
+    "favorites": "Favorites",
+    "search": "Search letters...",
+    "noLetters": "No letters yet.",
+    "from": "From",
+    "to": "To",
+    "mood": "Mood",
+    "song": "Song",
+    "voiceNote": "Voice Note",
+    "images": "Images",
+    "like": "Like",
+    "favorite": "Favorite",
+    "read": "Mark as read",
+    "unread": "Unread"
+  },
+  "moods": {
+    "love": "Love",
+    "missyou": "Miss You",
+    "happy": "Happy",
+    "cute": "Cute",
+    "sad": "Sad",
+    "sleepy": "Sleepy",
+    "proud": "Proud",
+    "celebration": "Celebration",
+    "thankful": "Thankful",
+    "random": "Random"
+  },
+  "reminders": {
+    "title": "Reminders",
+    "add": "Add Reminder",
+    "noReminders": "No reminders yet.",
+    "pending": "Pending",
+    "completed": "Completed",
+    "missed": "Missed",
+    "receiver": "For",
+    "repeat": "Repeat",
+    "none": "None",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "both": "Both of us",
+    "mohammad": "Mohammad",
+    "loshy": "Loshy"
+  },
+  "memories": {
+    "title": "Memories",
+    "noMemories": "No memories yet."
+  },
+  "together": {
+    "title": "Together",
+    "since": "Together Since",
+    "stats": "Our Story",
+    "streak": "Letter Streak",
+    "currentStreak": "Current Streak",
+    "longestStreak": "Longest Streak",
+    "totalLetters": "Total Letters",
+    "totalImages": "Total Images",
+    "totalSongs": "Total Songs",
+    "totalReminders": "Total Reminders",
+    "days": "days"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "fontSize": "Font Size",
+    "small": "Small",
+    "medium": "Medium",
+    "large": "Large",
+    "notifications": "Notifications",
+    "enableNotifications": "Enable Notifications"
+  },
+  "nav": {
+    "home": "Home",
+    "letters": "Letters",
+    "memories": "Memories",
+    "together": "Together"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "loading": "Loading...",
+    "error": "Something went wrong.",
+    "retry": "Try Again"
+  }
+}

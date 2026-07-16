@@ -1,0 +1,124 @@
+{
+  "app": {
+    "name": "لوشي",
+    "tagline": "مكان صغير مخصص لنا فقط.",
+    "couple": "محمد ❤️ لوشي"
+  },
+  "auth": {
+    "welcome": "مرحباً بعودتك",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "login": "تسجيل الدخول",
+    "loggingIn": "جاري تسجيل الدخول...",
+    "logout": "تسجيل الخروج",
+    "accessDenied": "تم رفض الوصول. هذا التطبيق خاص.",
+    "error": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+  },
+  "home": {
+    "togetherSince": "معاً منذ",
+    "days": "يوم",
+    "weeks": "أسبوع",
+    "months": "شهر",
+    "years": "سنة",
+    "together": "معاً",
+    "letters": "الرسائل",
+    "reminders": "التذكيرات",
+    "memories": "الذكريات",
+    "todayMemory": "ذكرى اليوم",
+    "onThisDay": "في هذا اليوم...",
+    "noMemories": "لا توجد ذكريات بعد. اكتب رسالتك الأولى!"
+  },
+  "letters": {
+    "title": "الرسائل",
+    "write": "اكتب رسالة",
+    "favorites": "المفضلة",
+    "search": "ابحث في الرسائل...",
+    "noLetters": "لا توجد رسائل بعد.",
+    "from": "من",
+    "to": "إلى",
+    "mood": "المزاج",
+    "song": "أغنية",
+    "voiceNote": "مذكرة صوتية",
+    "images": "صور",
+    "like": "أعجبني",
+    "favorite": "المفضلة",
+    "read": "تحديد كمقروءة",
+    "unread": "غير مقروءة"
+  },
+  "moods": {
+    "love": "حب",
+    "missyou": "اشتقت لك",
+    "happy": "سعيد",
+    "cute": "لطيف",
+    "sad": "حزين",
+    "sleepy": "نعسان",
+    "proud": "فخور",
+    "celebration": "احتفال",
+    "thankful": "ممتن",
+    "random": "عشوائي"
+  },
+  "reminders": {
+    "title": "التذكيرات",
+    "add": "إضافة تذكير",
+    "noReminders": "لا توجد تذكيرات بعد.",
+    "pending": "قيد الانتظار",
+    "completed": "مكتمل",
+    "missed": "فائت",
+    "receiver": "لـ",
+    "repeat": "تكرار",
+    "none": "لا شيء",
+    "daily": "يومياً",
+    "weekly": "أسبوعياً",
+    "monthly": "شهرياً",
+    "both": "كلانا",
+    "mohammad": "محمد",
+    "loshy": "لوشي"
+  },
+  "memories": {
+    "title": "الذكريات",
+    "noMemories": "لا توجد ذكريات بعد."
+  },
+  "together": {
+    "title": "معاً",
+    "since": "معاً منذ",
+    "stats": "قصتنا",
+    "streak": "سلسلة الرسائل",
+    "currentStreak": "السلسلة الحالية",
+    "longestStreak": "أطول سلسلة",
+    "totalLetters": "إجمالي الرسائل",
+    "totalImages": "إجمالي الصور",
+    "totalSongs": "إجمالي الأغاني",
+    "totalReminders": "إجمالي التذكيرات",
+    "days": "يوم"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "language": "اللغة",
+    "theme": "المظهر",
+    "light": "فاتح",
+    "dark": "داكن",
+    "system": "تلقائي",
+    "fontSize": "حجم الخط",
+    "small": "صغير",
+    "medium": "متوسط",
+    "large": "كبير",
+    "notifications": "الإشعارات",
+    "enableNotifications": "تفعيل الإشعارات"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "letters": "الرسائل",
+    "memories": "الذكريات",
+    "together": "معاً"
+  },
+  "common": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "back": "رجوع",
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ ما.",
+    "retry": "حاول مرة أخرى"
+  }
+}
