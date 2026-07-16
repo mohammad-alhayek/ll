@@ -1,15 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'wouter';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import PageWrapper from '@/components/layout/PageWrapper';
-import { getDaysTogether, getWeeksTogether, getMonthsTogether, getYearsTogether, formatTogetherSince, TOGETHER_SINCE } from '@/utils/dateUtils';
+import { getDaysTogether, getWeeksTogether, getMonthsTogether, getYearsTogether, formatTogetherSince, TOGETHER_SINCE, formatDate } from '@/utils/dateUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useLetters } from '@/hooks/useLetters';
+import { useAuth } from '@/contexts/AuthContext';
+import { getMoodConfig } from '@/utils/moodConfig';
+import type { Letter } from '@/types';
 
 export default function HomePage() {
   const [, setLocation] = useLocation();
   const { t } = useTranslation();
   const { language } = useLanguage();
+  const { letters } = useLetters();
+  const { profile } = useAuth();
+  const [dailyLetter, setDailyLetter] = useState<Letter | null>(null);
+
+  useEffect(() => {
+    if (letters.length > 0) {
+      const storedId = sessionStorage.getItem('loshy-daily-letter-id');
+      if (storedId) {
+        const found = letters.find(l => l.id === storedId);
+        if (found) {
+          setDailyLetter(found);
+          return;
+        }
+      }
+      const randomIdx = Math.floor(Math.random() * letters.length);
+      const chosen = letters[randomIdx];
+      setDailyLetter(chosen);
+      sessionStorage.setItem('loshy-daily-letter-id', chosen.id);
+    }
+  }, [letters]);
 
   const days = getDaysTogether();
   const weeks = getWeeksTogether();
@@ -23,9 +47,11 @@ export default function HomePage() {
     { value: years, label: t('home.years') },
   ];
 
+  const unreadCount = letters.filter(l => !l.isRead && l.authorUid !== profile?.uid).length;
+
   const features = [
-    { id: '/letters', icon: '💌', label: t('home.letters'), color: 'bg-rose-50/50 dark:bg-rose-950/20' },
-    { id: '/letters', icon: '⏰', label: t('home.reminders'), color: 'bg-orange-50/50 dark:bg-orange-950/20' },
+    { id: '/letters', icon: '💌', label: t('home.letters'), color: 'bg-rose-50/50 dark:bg-rose-950/20', badge: unreadCount },
+    { id: '/reminders', icon: '⏰', label: t('home.reminders'), color: 'bg-orange-50/50 dark:bg-orange-950/20' },
     { id: '/memories', icon: '📸', label: t('home.memories'), color: 'bg-blue-50/50 dark:bg-blue-950/20' },
     { id: '/together', icon: '❤️', label: t('home.together'), color: 'bg-pink-50/50 dark:bg-pink-950/20' },
   ];
@@ -72,8 +98,13 @@ export default function HomePage() {
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setLocation(feature.id)}
-            className={`card-lift flex flex-col items-center justify-center gap-3 rounded-3xl ${feature.color} border border-border p-6 shadow-sm`}
+            className={`card-lift relative flex flex-col items-center justify-center gap-3 rounded-3xl ${feature.color} border border-border p-6 shadow-sm`}
           >
+            {feature.badge ? (
+              <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground shadow-sm">
+                {feature.badge}
+              </div>
+            ) : null}
             <span className="text-4xl">{feature.icon}</span>
             <span className="font-semibold text-foreground">{feature.label}</span>
           </motion.button>
@@ -89,9 +120,25 @@ export default function HomePage() {
       >
         <div className="absolute start-0 top-0 h-full w-1.5 bg-primary/80"></div>
         <h3 className="mb-2 font-semibold text-foreground">{t('home.todayMemory')}</h3>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          {t('home.noMemories')}
-        </p>
+        
+        {dailyLetter ? (
+          <div 
+            onClick={() => setLocation(`/letters/${dailyLetter.id}`)}
+            className="mt-3 cursor-pointer rounded-2xl border bg-card p-4 shadow-sm transition-transform active:scale-95"
+            style={{ borderLeftColor: getMoodConfig(dailyLetter.mood).color, borderLeftWidth: '4px' }}
+          >
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-semibold capitalize">{dailyLetter.authorRole}</span>
+              <span className="text-xs text-muted-foreground">{formatDate(dailyLetter.createdAt, language)}</span>
+            </div>
+            <h4 className="font-bold text-foreground mb-1 line-clamp-1">{dailyLetter.title}</h4>
+            <p className="text-sm text-muted-foreground line-clamp-2">{dailyLetter.body}</p>
+          </div>
+        ) : (
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {t('home.noMemories')}
+          </p>
+        )}
       </motion.div>
     </PageWrapper>
   );
