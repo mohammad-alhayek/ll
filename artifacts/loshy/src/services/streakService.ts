@@ -1,9 +1,15 @@
-import { doc, getDoc, setDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
-import { db } from '@/firebase/config';
-import { todayStr, isYesterday } from '@/utils/dateUtils';
-import type { Streak } from '@/types';
+import {
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  serverTimestamp,
+} from "firebase/firestore";
+import { db } from "@/firebase/config";
+import { todayStr, isYesterday } from "@/utils/dateUtils";
+import type { Streak } from "@/types";
 
-const streakRef = () => doc(db, 'streak', 'current');
+const streakRef = () => doc(db, "streak", "current");
 
 export async function getStreak(): Promise<Streak | null> {
   try {
@@ -13,8 +19,8 @@ export async function getStreak(): Promise<Streak | null> {
     return {
       currentStreak: d.currentStreak ?? 0,
       longestStreak: d.longestStreak ?? 0,
-      lastLetterDate: d.lastLetterDate ?? '',
-      startDate: d.startDate ?? '',
+      lastLetterDate: d.lastLetterDate ?? "",
+      startDate: d.startDate ?? "",
       updatedAt: d.updatedAt?.toDate() ?? new Date(),
     };
   } catch {
@@ -39,7 +45,7 @@ export async function updateStreakOnNewLetter(): Promise<void> {
     }
 
     const data = snap.data();
-    const lastDate: string = data.lastLetterDate ?? '';
+    const lastDate: string = data.lastLetterDate ?? "";
     const current: number = data.currentStreak ?? 0;
     const longest: number = data.longestStreak ?? 0;
 
@@ -55,5 +61,7 @@ export async function updateStreakOnNewLetter(): Promise<void> {
       startDate: newStreak === 1 ? today : data.startDate,
       updatedAt: serverTimestamp(),
     });
-  } catch { /* ignore */ }
+  } catch {
+    /* ignore */
+  }
 }

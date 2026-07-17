@@ -1,31 +1,62 @@
-import { useEffect, useState } from 'react';
-import { doc, onSnapshot } from 'firebase/firestore';
-import { db } from '@/firebase/config';
-import type { Streak } from '@/types';
-import { Timestamp } from 'firebase/firestore';
+import { useEffect, useState } from "react";
+import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import { db } from "@/firebase/config";
 
 export function useStreak() {
-  const [streak, setStreak] = useState<Streak | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [streak, setStreak] = useState({
+    currentStreak: 0,
+    longestStreak: 0,
+  });
 
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, 'streak', 'current'), (snap) => {
-      if (snap.exists()) {
-        const d = snap.data();
+    const q = query(collection(db, "letters"), orderBy("createdAt", "desc"));
+
+    const unsub = onSnapshot(q, (snap) => {
+      const dates = snap.docs
+        .map((doc) => {
+          const data = doc.data();
+
+          return data.createdAt?.toDate().toISOString().split("T")[0];
+        })
+        .filter(Boolean);
+
+      if (dates.length === 0) {
         setStreak({
-          currentStreak: d.currentStreak ?? 0,
-          longestStreak: d.longestStreak ?? 0,
-          lastLetterDate: d.lastLetterDate ?? '',
-          startDate: d.startDate ?? '',
-          updatedAt: d.updatedAt instanceof Timestamp ? d.updatedAt.toDate() : new Date(),
+          currentStreak: 0,
+          longestStreak: 0,
         });
-      } else {
-        setStreak({ currentStreak: 0, longestStreak: 0, lastLetterDate: '', startDate: '', updatedAt: new Date() });
+        return;
       }
-      setLoading(false);
+
+      let current = 1;
+      let longest = 1;
+
+      for (let i = 1; i < dates.length; i++) {
+        const previous = new Date(dates[i - 1]);
+        const currentDate = new Date(dates[i]);
+
+        const diff =
+          (previous.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24);
+
+        if (diff === 1) {
+          current++;
+        } else if (diff > 1) {
+          break;
+        }
+
+        if (current > longest) {
+          longest = current;
+        }
+      }
+
+      setStreak({
+        currentStreak: current,
+        longestStreak: longest,
+      });
     });
+
     return unsub;
   }, []);
 
-  return { streak, loading };
+  return { streak };
 }

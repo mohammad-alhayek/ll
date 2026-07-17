@@ -1,30 +1,34 @@
-import { useEffect, useState } from 'react';
-import { doc, onSnapshot, Timestamp } from 'firebase/firestore';
-import { db } from '@/firebase/config';
-import type { AppState } from '@/types';
+import { useEffect, useState } from "react";
+import { doc, onSnapshot, Timestamp } from "firebase/firestore";
+import { db } from "@/firebase/config";
 
 export function useTogetherStats() {
-  const [stats, setStats] = useState<AppState | null>(null);
+  const [stats, setStats] = useState({
+    totalLetters: 0,
+    totalImages: 0,
+    totalSongs: 0,
+    totalReminders: 0,
+  });
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, 'appState', 'global'), (snap) => {
+    const unsub = onSnapshot(doc(db, "appState", "global"), (snap) => {
       if (snap.exists()) {
-        const d = snap.data();
+        const data = snap.data();
+
         setStats({
-          togetherSince: d.togetherSince ?? '2025-06-10',
-          totalLetters: d.totalLetters ?? 0,
-          totalImages: d.totalImages ?? 0,
-          totalSongs: d.totalSongs ?? 0,
-          totalReminders: d.totalReminders ?? 0,
-          lastUpdated: d.lastUpdated instanceof Timestamp ? d.lastUpdated.toDate() : new Date(),
+          totalLetters: data.totalLetters ?? 0,
+          totalImages: data.totalImages ?? 0,
+          totalSongs: data.totalSongs ?? 0,
+          totalReminders: data.totalReminders ?? 0,
         });
-      } else {
-        setStats({ togetherSince: '2025-06-10', totalLetters: 0, totalImages: 0, totalSongs: 0, totalReminders: 0, lastUpdated: new Date() });
       }
+
       setLoading(false);
     });
-    return unsub;
+
+    return () => unsub();
   }, []);
 
   return { stats, loading };
